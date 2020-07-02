@@ -1,0 +1,25 @@
+pipeline {
+    agent any 
+    stages {
+        stage('Stage clone') {
+            steps {
+                sh "rm -rf firstJava"
+               // sh "rmdir firstJava"
+                sh "git clone https://github.com/kriru/firstJava.git"
+            }
+        }
+        stage('Stage build') {
+            steps {
+                sh 'sudo javac /var/lib/jenkins/workspace/piplineA4/firstJava/HelloWorld.java' 
+            }
+        }
+         stage('Stage print') {
+            steps {
+                sh '''
+                cd firstJava 
+               java HelloWorld
+               '''
+            }
+        }
+    }
+}
